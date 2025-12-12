@@ -5,145 +5,444 @@
   <title>Contles</title>
   <meta name="description" content="Where brands and influencers connect" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+
     * {
       box-sizing: border-box;
-      font-family: Inter, system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #000000;
+      --primary-hover: #1a1a1a;
+      --text-primary: #0a0a0a;
+      --text-secondary: #6b7280;
+      --text-tertiary: #9ca3af;
+      --border: #e5e7eb;
+      --border-focus: #000000;
+      --background: #ffffff;
+      --background-subtle: #fafafa;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --success: #10b981;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      background: #fff;
-      color: #000;
+      background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-family: 'Neue Montreal', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 20px;
     }
 
     .container {
       width: 100%;
-      max-width: 420px;
-      padding: 24px;
+      max-width: 480px;
+      padding: 48px 40px;
+      background: var(--background);
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
       text-align: center;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
-      font-size: 32px;
-      font-weight: 600;
-      margin-bottom: 12px;
+      font-size: 40px;
+      font-weight: 500;
+      margin-bottom: 16px;
       letter-spacing: -0.02em;
+      color: var(--text-primary);
+      line-height: 1.2;
     }
 
     p {
-      font-size: 16px;
-      color: #444;
-      margin-bottom: 32px;
+      letter-spacing: 0.02em;
+      font-weight: 450;
+    }
+
+    #form-wrapper p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      line-height: 1.6;
+      font-weight: 500;
     }
 
     form {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
     }
 
     input {
       width: 100%;
-      padding: 14px 16px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 15px;
+      padding: 16px 20px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 500;
+      font-family: inherit;
       outline: none;
+      background: var(--background);
+      color: var(--text-primary);
+      transition: var(--transition);
+      letter-spacing: 0.02em;
+    }
+
+    input::placeholder {
+      color: var(--text-tertiary);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    input:hover {
+      border-color: #d1d5db;
     }
 
     input:focus {
-      border-color: #000;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+      background: var(--background);
     }
 
     button {
-      margin-top: 6px;
-      padding: 14px 16px;
-      border-radius: 8px;
+      margin-top: 8px;
+      padding: 16px 24px;
+      border-radius: var(--radius-sm);
       border: none;
-      background: #000;
+      background: var(--primary);
       color: #fff;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 500;
+      letter-spacing: 0.02em;
+      font-family: inherit;
       cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    button:hover::before {
+      left: 100%;
     }
 
     button:hover {
-      opacity: 0.9;
+      background: var(--primary-hover);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-sm);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    button:disabled::before {
+      display: none;
     }
 
     .success {
       display: none;
+      animation: fadeIn 0.5s ease-out;
     }
 
     .success img {
       width: 100%;
-      border-radius: 12px;
-      margin-bottom: 16px;
+      max-width: 400px;
+      height: auto;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
     }
 
-    .success h2 {
-      font-size: 24px;
+    .success h1 {
+      font-size: 32px;
       font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .success p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    #error-message {
+      color: var(--error);
+      margin-top: 16px;
+      font-size: 14px;
+      padding: 12px 16px;
+      background: var(--error-bg);
+      border-radius: var(--radius-sm);
+      border: 1px solid #fecaca;
+      font-weight: 400;
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .container {
+        padding: 40px 32px;
+        border-radius: 20px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      #form-wrapper p {
+        font-size: 16px;
+        margin-bottom: 32px;
+      }
+
+      input {
+        padding: 14px 18px;
+        font-size: 16px;
+      }
+
+      button {
+        padding: 14px 20px;
+        font-size: 15px;
+      }
+
+      .success h2 {
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 32px 24px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
+
     <!-- FORM -->
     <div id="form-wrapper">
-      <h1>Be the first to use Contles</h1>
-      <p>We’re launching very soon. Join the waitlist to get early access before everyone else.</p>
+      <h1>Join Contles!</h1>
+      <p>We’re launching very soon! Join the waitlist to get early access before everyone else!</p>
 
-      <!-- MailerLite form -->
       <form id="waitlist-form">
-        <input type="text" name="fields[name]" placeholder="Your name" required />
-        <input type="email" name="fields[email]" placeholder="Your email" required />
-        <button type="submit">Get early access</button>
+        <input type="text" name="fields[name]" id="name-input" placeholder="Your name" required />
+        <input type="email" name="fields[email]" id="email-input" placeholder="Your email" required />
+        <button type="submit" id="submit-btn" style="letter-spacing: 0.02em; font-weight: 500;">Get early access</button>
       </form>
+
+      <div id="error-message" style="display: none; color: #d32f2f; margin-top: 12px; font-size: 14px;">
+        Something went wrong. Please try again.
+      </div>
     </div>
 
     <!-- SUCCESS -->
     <div class="success" id="success">
-      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3l0a2J3YjZqM2h5dTJqM3QzZzNwcW5rNHg3MHFmNWZ5eHBzNDFnbiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7aD2saalBwwftBIY/giphy.gif" alt="Thank you meme">
-      <h2>You’re in 🚀</h2>
-      <p>We’ll notify you as soon as early access opens.</p>
+      <img id="success-gif" src="" alt="Thank you" />
+      <h1 style="font-size: 40px; font-weight: 500; margin-bottom: 16px; letter-spacing: -0.02em; color: var(--text-primary); line-height: 1.2;">You’re in 🚀</h1>
+      <p>Thankyou! We will get in touch with you soon!</p>
     </div>
+
   </div>
 
   <script>
     const form = document.getElementById("waitlist-form");
     const formWrapper = document.getElementById("form-wrapper");
     const success = document.getElementById("success");
+    const successGifImg = document.getElementById("success-gif");
+    const errorMessage = document.getElementById("error-message");
+    const submitBtn = document.getElementById("submit-btn");
+    const nameInput = document.getElementById("name-input");
+    const emailInput = document.getElementById("email-input");
+    
+    const USE_SERVERLESS_FUNCTION = false;
+    const SERVERLESS_FUNCTION_URL = "/api/subscribe";
+    
+    const MAILERLITE_API_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYzBhMzA2MTFmZjZlYWUwZTBlZDg3NGU3YmY2YjI1ZDY0NTVmYjIwOTg1ZjgzODc0MzM5MTk3ZWUwMmMzN2ExNWVhOWRiYWFiODE3NTZiMjMiLCJpYXQiOjE3NjU1NzA5OTEuMzA5NTQ3LCJuYmYiOjE3NjU1NzA5OTEuMzA5NTQ5LCJleHAiOjQ5MjEyNDQ1OTEuMzAzMDc2LCJzdWIiOiIxOTk3NDI3Iiwic2NvcGVzIjpbXX0.Tl6yVP8tpuYRjYcQPAKjKfN66aUYj0MGDa6Qlnczfh5RiE7NfjkGJYlzltRVaMGujirbqBOXRu61IATu0kxtsnWOs98VUQmTNj3fw0iizFJWWfEBKQIerc674UHTmHFFl0MBM9VFVmoBqueC6AzvOitqPocLpzwFXXEAWyjMhHB8tHGeAQlly0nA7SejOeT_J9cLVF7EEXAss4weEkKKaRCF1wy670udKoHAYr6YGjj8qiat6ByJa13HMKD9Jyps1qbMO6uyBNT0_tASBlZtChQ_LSl-6j4P4dYyjXDs0CXnx9w99w-O-uS0CjDr3xTmY1ZvaldA4jWxW14WKgRfBNzdaRjQFUhQtw6WKNHlT4ZQJ3RZstH_NV8xTrsvUnDBjRrAkTXJgdbDObQRfzSmiDgr0v497Ur9uIWldngT2C9i8j1-JKgIX9N0oQqYkvmqRq-Dz-UKZJafJJ99E37pjKFRlTR_bWteikKAXBfsF2rf20MdJf4QQ9HvAVeEcJyPc1DBq_4GUJLasCilVitlajKeToys553LEqSs_Du-A5cFNh0Vn0P1P7mbGOCZEfRbcAQ8MywAMsPyCwG2N76W6-z3V9sGVNH7QHUuSWOIMUty2pbIbfcJ9-dl0DoV-j-pqm3DRyNOONsJ_lwCDjHTbPBzLpZpUPmeSJzDWJO0jb0";
+    const MAILERLITE_GROUP_ID = "173612830070670438";
+    const MAILERLITE_API_URL = "https://connect.mailerlite.com/api/subscribers";
+
+    // Daily rotating success GIF (changes once per day, same for all visitors)
+    const DAILY_SUCCESS_GIFS = [
+      // Tip: you can swap these for your own hosted GIFs anytime.
+      "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif", // happy dance
+      "https://media.giphy.com/media/111ebonMs90YLu/giphy.gif",    // yay
+      "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif", // applause
+    ];
+
+    function getDayOfYear(date = new Date()) {
+      const start = new Date(date.getFullYear(), 0, 0);
+      const diff =
+        date - start +
+        (start.getTimezoneOffset() - date.getTimezoneOffset()) * 60 * 1000;
+      return Math.floor(diff / (1000 * 60 * 60 * 24));
+    }
+
+    function pickDailySuccessGifUrl() {
+      const day = getDayOfYear();
+      return DAILY_SUCCESS_GIFS[day % DAILY_SUCCESS_GIFS.length];
+    }
+
+    function setDailySuccessGif() {
+      if (!successGifImg) return;
+      const url = pickDailySuccessGifUrl();
+      successGifImg.src = url;
+      successGifImg.loading = "lazy";
+      successGifImg.decoding = "async";
+    }
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      
+      errorMessage.style.display = "none";
+      
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Submitting...";
 
-      const formData = new FormData(form);
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
 
-      const response = await fetch(
-        "https://assets.mailerlite.com/jsonp/1979826/subscribe",
-        {
-          method: "POST",
-          body: formData,
-          mode: "no-cors"
+      if (!name || !email) {
+        showError("Please fill in all fields.");
+        return;
+      }
+
+      try {
+        let response, data;
+
+        if (USE_SERVERLESS_FUNCTION) {
+          response = await fetch(SERVERLESS_FUNCTION_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              email: email,
+              name: name
+            })
+          });
+          data = await response.json();
+        } else {
+          response = await fetch(MAILERLITE_API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${MAILERLITE_API_KEY}`,
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({
+              email: email,
+              fields: {
+                name: name
+              },
+              groups: [MAILERLITE_GROUP_ID]
+            })
+          });
+          data = await response.json();
         }
-      );
 
+        if (response.ok) {
+          showSuccess();
+        } else {
+
+          if (data.error || data.message) {
+            const errorMsg = data.error || data.message;
+            if (errorMsg.includes("already exists") || response.status === 200) {
+              showSuccess();
+            } else {
+              showError(errorMsg || "Failed to subscribe. Please try again.");
+            }
+          } else {
+            showError("Failed to subscribe. Please try again.");
+          }
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+        showError("Network error. Please check your connection and try again.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
+
+    function showSuccess() {
       formWrapper.style.display = "none";
       success.style.display = "block";
-    });
+      setDailySuccessGif();
+      form.reset();
+    }
+
+    function showError(message = "Something went wrong. Please try again.") {
+      errorMessage.textContent = message;
+      errorMessage.style.display = "block";
+    }
   </script>
 
 </body>
