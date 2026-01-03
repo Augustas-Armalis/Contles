@@ -36,6 +36,10 @@
   <meta name="twitter:description" content="Redefining how creator marketing works" />
   <meta name="twitter:image" content="https://contles.com/images/og.png" />
 
+  <script>
+    document.documentElement.classList.add('js');
+  </script>
+
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -74,9 +78,19 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg: #0F0F0F;
+      --panel: #0B0B0C;
+      --panel-2: #141414;
+      --border: #212121;
+      --border-focus: #313131;
+      --text: #FFFFFF;
+      --muted: #666670;
+      --muted-2: #AFAFB6;
+    }
 
     * {
       box-sizing: border-box;
@@ -84,299 +98,373 @@
       padding: 0;
     }
 
-    :root {
-      --primary: #000000;
-      --primary-hover: #1a1a1a;
-      --text-primary: #0a0a0a;
-      --text-secondary: #6b7280;
-      --text-tertiary: #9ca3af;
-      --border: #e5e7eb;
-      --border-focus: #000000;
-      --background: #ffffff;
-      --background-subtle: #fafafa;
-      --error: #dc2626;
-      --error-bg: #fef2f2;
-      --success: #10b981;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --radius: 12px;
-      --radius-sm: 8px;
-      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
     body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Neue Montreal', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Neue Montreal', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-optical-sizing: auto;
       font-weight: 400;
-      line-height: 1.6;
+      letter-spacing: 0.01em;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      padding: 20px;
+      padding: 0 8px;
     }
 
-    .container {
+    input,
+    textarea,
+    button,
+    select,
+    a {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    a:focus,
+    a:visited,
+    a:active {
+      outline: none;
+    }
+
+    img::selection {
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    ::selection {
+      background-color: rgba(255, 255, 255, 0.125);
+    }
+
+    ::-moz-selection {
+      background-color: rgba(255, 255, 255, 0.125);
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--border);
+      border-radius: 99px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: var(--border);
+    }
+
+    img,
+    video {
+      pointer-events: none;
+    }
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: fit-content;
+      justify-content: center;
+      margin-top: 128px;
       width: 100%;
-      max-width: 480px;
-      padding: 48px 40px;
-      background: var(--background);
-      border-radius: 24px;
-      box-shadow: var(--shadow-lg);
-      text-align: center;
-      animation: fadeIn 0.5s ease-out;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    #form-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .text-mobile-container {
+      width: 100%;
+      max-width: 520px;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-logo {
+      width: auto;
+      height: 36px;
+      object-fit: cover;
+      margin-bottom: 42px;
     }
 
     h1 {
-      font-size: 40px;
-      font-weight: 500;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      line-height: 1.2;
+      color: var(--text);
+      text-align: center;
+      font-size: 28px;
+      font-weight: 550;
+      line-height: 120%;
+      letter-spacing: -0.5px;
+      margin: 0;
+      margin-bottom: 42px;
+      width: 100%;
+    }
+
+    .hero-title {
+      background-image: linear-gradient(
+        to top right,
+        #8C31D5 0%,
+        #FB5F5F 100%
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
     }
 
     p {
-      letter-spacing: 0.02em;
-      font-weight: 450;
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: 0.005em;
     }
 
-    #form-wrapper p {
-      font-size: 17px;
-      color: var(--text-secondary);
-      margin-bottom: 40px;
-      line-height: 1.6;
-      font-weight: 500;
+    html.js .anim-logo,
+    html.js .anim-title,
+    html.js .anim-launch {
+      opacity: 0;
+      transform: translateY(16px);
+      filter: blur(10px);
+      will-change: transform, opacity, filter;
+    }
+
+    html.js .anim-input,
+    html.js .anim-button {
+      opacity: 0;
+      transform: translateY(16px);
+      filter: blur(7px);
+      will-change: transform, opacity, filter;
+    }
+
+    html.js .anim-carousel {
+      opacity: 0;
+      transform: translateY(16px);
+      filter: blur(9px);
+      will-change: transform, opacity, filter;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html.js .anim-logo,
+      html.js .anim-title,
+      html.js .anim-input,
+      html.js .anim-button,
+      html.js .anim-launch,
+      html.js .anim-carousel {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
     }
 
     form {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
     }
 
     input {
       width: 100%;
-      padding: 16px 20px;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-size: 16px;
-      font-weight: 500;
-      font-family: inherit;
-      outline: none;
-      background: var(--background);
-      color: var(--text-primary);
-      transition: var(--transition);
+      max-width: 300px;
+      height: 38px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      box-sizing: border-box;
+      padding-left: 14px;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 400;
       letter-spacing: 0.02em;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s ease;
     }
 
     input::placeholder {
-      color: var(--text-tertiary);
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
-
-    input:hover {
-      border-color: #d1d5db;
+      color: var(--muted-2);
+      opacity: 1;
     }
 
     input:focus {
-      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
-      background: var(--background);
+      outline: none;
+      border-color: var(--border-focus);
+      background: #18181b;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s ease;
     }
 
-    button {
-      margin-top: 8px;
-      padding: 16px 24px;
-      border-radius: var(--radius-sm);
-      border: none;
-      background: var(--primary);
-      color: #fff;
+    input:-webkit-autofill,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 1000px var(--panel-2) inset !important;
+      box-shadow: 0 0 0 1000px var(--panel-2) inset !important;
+      -webkit-text-fill-color: #fff !important;
+      color: #fff !important;
+      border-color: var(--border-focus) !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    .sub-button {
+      width: 100%;
+      max-width: 300px;
+      height: 38px;
+      flex-shrink: 0;
+      border-radius: 11px;
+      background: #fff;
+      color: #000;
       font-size: 16px;
       font-weight: 500;
       letter-spacing: 0.02em;
-      font-family: inherit;
       cursor: pointer;
-      transition: var(--transition);
-      box-shadow: var(--shadow-sm);
+      border: none;
+      margin: 0;
+      transition: background-color 0.2s ease;
+    }
+
+    .sub-button:hover {
+      background: #dfdfe4;
+    }
+
+    .sub-button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    #error-message {
+      display: none;
+      width: 100%;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #ff6b6b;
+      text-align: center;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-top: 92px;
+      margin-bottom: 92px;
+      gap: 16px;
+    }
+
+    #carousel-container {
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 1440/890;
+      margin: 0 auto;
       position: relative;
       overflow: hidden;
+      background: #18181b;
+      border: 1px solid var(--border);
+      border-radius: 12px;
     }
 
-    button::before {
-      content: '';
+    .carousel-image {
       position: absolute;
       top: 0;
-      left: -100%;
+      left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.5s;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
-    button:hover::before {
-      left: 100%;
-    }
-
-    button:hover {
-      background: var(--primary-hover);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-1px);
-    }
-
-    button:active {
-      transform: translateY(0);
-      box-shadow: var(--shadow-sm);
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: var(--shadow-sm);
-    }
-
-    button:disabled::before {
-      display: none;
+    .carousel-image.active {
+      opacity: 1;
+      z-index: 1;
     }
 
     .success {
       display: none;
-      animation: fadeIn 0.5s ease-out;
+      position: fixed;
+      inset: 0;
+      background: #0F0F0F;
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .success[style*="display: block"] {
+      display: flex !important;
     }
 
     .success img {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       height: auto;
-      border-radius: var(--radius);
+      border-radius: 12px;
       margin-bottom: 24px;
-      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      background: #18181b;
     }
 
     .success h1 {
-      font-size: 32px;
-      font-weight: 600;
       margin-bottom: 12px;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
     }
 
     .success p {
-      font-size: 17px;
-      color: var(--text-secondary);
-      line-height: 1.6;
+      color: var(--muted);
     }
 
-    #error-message {
-      color: var(--error);
-      margin-top: 16px;
-      font-size: 14px;
-      padding: 12px 16px;
-      background: var(--error-bg);
-      border-radius: var(--radius-sm);
-      border: 1px solid #fecaca;
-      font-weight: 400;
-      animation: shake 0.4s ease-in-out;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-8px); }
-      75% { transform: translateX(8px); }
-    }
-
-    /* Responsive Design */
-    @media (max-width: 640px) {
-      body {
-        padding: 16px;
-      }
-
-      .container {
-        padding: 40px 32px;
-        border-radius: 20px;
-      }
-
-      h1 {
-        font-size: 32px;
-      }
-
-      #form-wrapper p {
-        font-size: 16px;
-        margin-bottom: 32px;
-      }
-
-      input {
-        padding: 14px 18px;
-        font-size: 16px;
-      }
-
-      button {
-        padding: 14px 20px;
-        font-size: 15px;
-      }
-
-      .success h2 {
-        font-size: 28px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 32px 24px;
-      }
-
-      h1 {
-        font-size: 28px;
+    @media (max-width: 600px) {
+      .page {
+        margin-top: 92px;
       }
     }
   </style>
 </head>
 <body>
-
-  <div class="container">
-
-    <!-- FORM -->
+  <div class="page">
     <div id="form-wrapper">
-      <h1>Join Contles!</h1>
-      <p>We’re launching very soon! Join the waitlist to get early access before everyone else!</p>
+      <div class="text-mobile-container">
+        <img src="/images/contles-big.svg" alt="Contles logo" class="brand-logo anim-logo" />
 
-      <form id="waitlist-form">
-        <input type="text" name="fields[name]" id="name-input" placeholder="Your name" required />
-        <input type="email" name="fields[email]" id="email-input" placeholder="Your email" required />
-        <button type="submit" id="submit-btn" style="letter-spacing: 0.02em; font-weight: 500;">Get early access</button>
-      </form>
+        <h1 class="anim-title" style="max-width: 320px; text-transform: capitalize;">We're building the future of <span class="hero-title">creator marketing</span></h1>
 
-      <div id="error-message" style="display: none; color: #d32f2f; margin-top: 12px; font-size: 14px;">
-        Something went wrong. Please try again.
+        <form id="waitlist-form" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+          <input type="text" name="fields[name]" id="name-input" class="anim-input" placeholder="Name" required style="font-weight: 500; letter-spacing: -0.01em;"/>
+          <input type="email" name="fields[email]" id="email-input" class="anim-input" placeholder="Email" required style="font-weight: 500; letter-spacing: -0.01em;"/>
+          <button class="sub-button anim-button" type="submit" id="submit-btn" style="font-weight: 500; letter-spacing: -0.01em;">Get early access</button>
+        </form>
+
+        <div id="error-message">Something went wrong. Please try again.</div>
+      </div>
+
+      <div class="section">
+        <p class="anim-launch" style="font-weight: 500; letter-spacing: -0.01em;">Launching very soon!</p>
+
+        <div id="carousel-container" class="anim-carousel" aria-label="Product preview carousel">
+          <img src="/images/1.webp" class="carousel-image" alt="Contles preview 1" />
+          <img src="/images/2.webp" class="carousel-image" alt="Contles preview 2" />
+          <img src="/images/3.webp" class="carousel-image" alt="Contles preview 3" />
+          <img src="/images/4.webp" class="carousel-image" alt="Contles preview 4" />
+          <img src="/images/5.webp" class="carousel-image" alt="Contles preview 5" />
+          <img src="/images/6.webp" class="carousel-image" alt="Contles preview 6" />
+          <img src="/images/7.webp" class="carousel-image" alt="Contles preview 7" />
+        </div>
       </div>
     </div>
 
-    <!-- SUCCESS -->
     <div class="success" id="success">
       <img id="success-gif" src="" alt="Thank you" />
-      <h1 style="font-size: 40px; font-weight: 500; margin-bottom: 16px; letter-spacing: -0.02em; color: var(--text-primary); line-height: 1.2;">You’re in 🚀</h1>
-      <p>Thankyou! We will get in touch with you soon!</p>
+      <h1 style="font-size: 40px; font-weight: 550; letter-spacing: -0.02em; line-height: 1.2;">You’re in 🚀</h1>
+      <p style="font-weight: 500; letter-spacing: -0.01em;">Thankyou! We will get in touch with you soon!</p>
     </div>
-
   </div>
 
+  <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
   <script>
     const form = document.getElementById("waitlist-form");
     const formWrapper = document.getElementById("form-wrapper");
@@ -394,12 +482,10 @@
     const MAILERLITE_GROUP_ID = "173612830070670438";
     const MAILERLITE_API_URL = "https://connect.mailerlite.com/api/subscribers";
 
-    // Daily rotating success GIF (changes once per day, same for all visitors)
     const DAILY_SUCCESS_GIFS = [
-      // Tip: you can swap these for your own hosted GIFs anytime.
-      "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif", // happy dance
-      "https://media.giphy.com/media/111ebonMs90YLu/giphy.gif",    // yay
-      "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif", // applause
+      "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif",
+      "https://media.giphy.com/media/111ebonMs90YLu/giphy.gif",
+      "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
     ];
 
     function getDayOfYear(date = new Date()) {
@@ -508,6 +594,64 @@
     function showError(message = "Something went wrong. Please try again.") {
       errorMessage.textContent = message;
       errorMessage.style.display = "block";
+    }
+
+    const carouselImages = document.querySelectorAll('#carousel-container .carousel-image');
+    let carouselIndex = 0;
+
+    function showCarouselImage(idx) {
+      carouselImages.forEach((img, i) => {
+        if (i === idx) {
+          img.classList.add('active');
+        } else {
+          img.classList.remove('active');
+        }
+      });
+    }
+
+    if (carouselImages.length > 0) {
+      showCarouselImage(carouselIndex);
+      setInterval(() => {
+        carouselIndex = (carouselIndex + 1) % carouselImages.length;
+        showCarouselImage(carouselIndex);
+      }, 1000);
+    }
+
+    const prefersReducedMotion =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!prefersReducedMotion && window.gsap) {
+      window.gsap.set(
+        [".anim-logo", ".anim-title", ".anim-input", ".anim-button", ".anim-launch", ".anim-carousel"],
+        { autoAlpha: 0, y: 16 }
+      );
+      window.gsap.set([".anim-logo", ".anim-title", ".anim-launch"], { filter: "blur(10px)" });
+      window.gsap.set([".anim-input", ".anim-button"], { filter: "blur(6px)" });
+      window.gsap.set([".anim-carousel"], { filter: "blur(9px)" });
+      document.documentElement.classList.remove("js");
+
+      const flow = [
+        ".anim-logo",
+        ".anim-title",
+        "#name-input.anim-input",
+        "#email-input.anim-input",
+        ".anim-button",
+        ".anim-launch",
+        ".anim-carousel"
+      ];
+
+      window.gsap.to(flow, {
+        autoAlpha: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.75,
+        ease: "power3.out",
+        stagger: 0.14,
+        force3D: true
+      });
+    } else {
+      document.documentElement.classList.remove('js');
     }
   </script>
 
