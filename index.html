@@ -354,6 +354,56 @@
       gap: 16px;
     }
 
+    .social-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .social-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .social-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      gap: 10px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.75;
+      transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s ease;
+    }
+
+    .social-link:hover {
+      opacity: 1;
+      filter: brightness(1.2);
+      transform: translateY(-1px);
+    }
+
+    .social-link:active {
+      transform: translateY(0);
+    }
+
+    .social-link img {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+
     #carousel-container {
       width: 100%;
       max-width: 800px;
@@ -443,7 +493,23 @@
       </div>
 
       <div class="section">
-        <p class="anim-launch" style="font-weight: 500; letter-spacing: -0.01em;">Launching very soon!</p>
+        <div class="social-row anim-launch">
+          <p style="font-weight: 500; letter-spacing: -0.01em; color: #808080">Follow us on</p>
+          <div class="social-links">
+            <a class="social-link" href="https://www.instagram.com/trycontles/" target="_blank" rel="noopener noreferrer" aria-label="Contles on Instagram">
+              <img src="/images/instagram.svg" alt="" />
+            </a>
+            <a class="social-link" href="http://x.com/trycontles" target="_blank" rel="noopener noreferrer" aria-label="Contles on X">
+              <img src="/images/x.svg" alt="" />
+            </a>
+            <a class="social-link" href="https://www.linkedin.com/company/contles/" target="_blank" rel="noopener noreferrer" aria-label="Contles on LinkedIn">
+              <img src="/images/linkedin.svg" alt="" />
+            </a>
+            <a class="social-link" href="https://www.facebook.com/profile.php?id=61585310110358" target="_blank" rel="noopener noreferrer" aria-label="Contles on Facebook">
+              <img src="/images/facebook.svg" alt="" />
+            </a>
+          </div>
+        </div>
 
         <div id="carousel-container" class="anim-carousel" aria-label="Product preview carousel">
           <img src="/images/1.webp" class="carousel-image" alt="Contles preview 1" />
