@@ -1,8 +1,0 @@
-{
-  "functions": {
-    "api/subscribe.js": {
-      "maxDuration": 10
-    }
-  }
-}
-
