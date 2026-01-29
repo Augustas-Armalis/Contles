@@ -2,39 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Contles</title>
-  <meta name="description" content="Redefining how creator marketing works" />
+  <title>Newsletter</title>
+  <meta name="description" content="Join the newsletter to get early access!" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0B0B0D" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
-  <link rel="canonical" href="https://contles.com/" />
+  <link rel="canonical" href="https://join.contles.com/" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="/images/favicon.ico" sizes="any" />
+  <link rel="icon" href="/images/favicon.svg" sizes="any" />
   <link rel="shortcut icon" href="/images/favicon.ico" />
-  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png.png" />
+  <link rel="apple-touch-icon" href="/images/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Contles" />
+  <meta property="og:site_name" content="Contles Newsletter" />
   <meta property="og:title" content="Contles" />
-  <meta property="og:description" content="Redefining how creator marketing works" />
-  <meta property="og:url" content="https://contles.com/" />
+  <meta property="og:description" content="Join the newsletter to get early access!" />
+  <meta property="og:url" content="https://join.contles.com/" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:image" content="https://contles.com/images/og.png" />
+  <meta property="og:image" content="https://join.contles.com/images/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Contles — Redefining how creator marketing works" />
+  <meta property="og:image:alt" content="Join the newsletter to get early access!" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Contles" />
-  <meta name="twitter:description" content="Redefining how creator marketing works" />
-  <meta name="twitter:image" content="https://contles.com/images/og.png" />
+  <meta name="twitter:description" content="Join the newsletter to get early access!" />
+  <meta name="twitter:image" content="https://join.contles.com/images/og.png" />
 
   <script>
     document.documentElement.classList.add('js');
@@ -45,7 +45,7 @@
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Contles",
-      "url": "https://contles.com"
+      "url": "https://join.contles.com"
     }
   </script>
   <script type="application/ld+json">
@@ -56,7 +56,7 @@
       "url": "https://contles.com",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://contles.com/search?q={search_term_string}",
+        "target": "https://join.contles.com/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     }
@@ -66,12 +66,12 @@
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Contles",
-      "url": "https://contles.com/",
-      "description": "Contles makes creator marketing measurable, open, and secure.  Brands create public campaigns with a defined budget and payout per result. Creators can join instantly, compete by delivering results, and get paid securely based on performance.  Beyond campaigns, brands and creators can discover each other for free, collaborate directly, and manage everything in one secure place, from communication to payouts.  This is Contles - the new standard for working with creators.",
+      "url": "https://join.contles.com/",
+      "description": "Contles makes creator marketing measurable, open, and secure. Brands create public campaigns with a defined budget and payout per result. Creators can join instantly, compete by delivering results, and get paid securely based on performance.  Beyond campaigns, brands and creators can discover each other for free, collaborate directly, and manage everything in one secure place, from communication to payouts.  This is Contles - the new standard for working with creators.",
       "isPartOf": {
         "@type": "WebSite",
         "name": "Contles",
-        "url": "https://contles.com"
+        "url": "https://join.contles.com"
       }
     }
   </script>
@@ -207,8 +207,8 @@
     .hero-title {
       background-image: linear-gradient(
         to top right,
-        #8C31D5 0%,
-        #FB5F5F 100%
+        #5F0EEC 0%,
+        #FC6262 100%
       );
       background-clip: text;
       -webkit-background-clip: text;
@@ -349,7 +349,7 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      margin-top: 92px;
+      margin-top: 85px;
       margin-bottom: 92px;
       gap: 16px;
     }
@@ -416,20 +416,11 @@
       border-radius: 12px;
     }
 
-    .carousel-image {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .preview-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .carousel-image.active {
-      opacity: 1;
-      z-index: 1;
+      display: block;
     }
 
     .success {
@@ -479,14 +470,17 @@
   <div class="page">
     <div id="form-wrapper">
       <div class="text-mobile-container">
-        <img src="/images/contles-big.svg" alt="Contles logo" class="brand-logo anim-logo" />
+        <img src="/images/contles-big.svg" alt="Contles logo" class="brand-logo anim-logo" style="height: 28px;" />
 
-        <h1 class="anim-title" style="max-width: 320px; text-transform: capitalize;">We're building the future of <span class="hero-title">creator marketing</span></h1>
+        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 36px!important;">
+          <h1 class="anim-title" style="max-width: 300px; text-transform: capitalize; margin-bottom: 8px!important; font-size: 36px; ">Reach millions and make thausands</h1>
+          <p  class="anim-title" style="font-weight: 500; letter-spacing: -0.01em; color: #BDBDBD; text-align: center; line-height: 140%; max-width: 300px;">Contles is currently in development! Join the newsletter to get early access.</p>
+        </div>
 
         <form id="waitlist-form" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
           <input type="text" name="fields[name]" id="name-input" class="anim-input" placeholder="Name" required style="font-weight: 500; letter-spacing: -0.01em;"/>
           <input type="email" name="fields[email]" id="email-input" class="anim-input" placeholder="Email" required style="font-weight: 500; letter-spacing: -0.01em;"/>
-          <button class="sub-button anim-button" type="submit" id="submit-btn" style="font-weight: 500; letter-spacing: -0.01em;">Get early access</button>
+          <button class="sub-button anim-button" type="submit" id="submit-btn" style="font-weight: 500; letter-spacing: -0.01em;">Join Today</button>
         </form>
 
         <div id="error-message">Something went wrong. Please try again.</div>
@@ -514,16 +508,14 @@
           </div>
         </div>
 
-        <div id="carousel-container" class="anim-carousel" aria-label="Product preview carousel">
-          <img src="/images/1.webp" class="carousel-image" alt="Contles preview 1" />
-          <img src="/images/2.webp" class="carousel-image" alt="Contles preview 2" />
-          <img src="/images/3.webp" class="carousel-image" alt="Contles preview 3" />
-          <img src="/images/5.webp" class="carousel-image" alt="Contles preview 5" />
-          <img src="/images/6.webp" class="carousel-image" alt="Contles preview 6" />
-          <img src="/images/7.webp" class="carousel-image" alt="Contles preview 7" />
-          <img src="/images/8.webp" class="carousel-image" alt="Contles preview 8" />
-          <img src="/images/9.webp" class="carousel-image" alt="Contles preview 9" />
-          <img src="/images/10.webp" class="carousel-image" alt="Contles preview 10" />
+        <div id="carousel-container" class="anim-carousel" aria-label="Product preview">
+          <img
+            src="/images/12.webp"
+            class="preview-image"
+            alt="Contles product preview"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </div>
@@ -665,27 +657,6 @@
     function showError(message = "Something went wrong. Please try again.") {
       errorMessage.textContent = message;
       errorMessage.style.display = "block";
-    }
-
-    const carouselImages = document.querySelectorAll('#carousel-container .carousel-image');
-    let carouselIndex = 0;
-
-    function showCarouselImage(idx) {
-      carouselImages.forEach((img, i) => {
-        if (i === idx) {
-          img.classList.add('active');
-        } else {
-          img.classList.remove('active');
-        }
-      });
-    }
-
-    if (carouselImages.length > 0) {
-      showCarouselImage(carouselIndex);
-      setInterval(() => {
-        carouselIndex = (carouselIndex + 1) % carouselImages.length;
-        showCarouselImage(carouselIndex);
-      }, 1000);
     }
 
     const prefersReducedMotion =
