@@ -76,9 +76,9 @@
     }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+  <!-- Inter (variable font with full weight range) -->
+  <link rel="preconnect" href="https://rsms.me" />
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 
   <style>
     :root {
@@ -101,13 +101,19 @@
     body {
       background-color: var(--bg);
       color: var(--text);
-      font-family: 'Inter', 'Neue Montreal', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-family: Inter, 'Neue Montreal', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       font-optical-sizing: auto;
       font-weight: 400;
       letter-spacing: 0.01em;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       padding: 0 8px;
+    }
+
+    @supports (font-variation-settings: normal) {
+      body {
+        font-family: "Inter var", Inter, 'Neue Montreal', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      }
     }
 
     input,
@@ -178,7 +184,7 @@
     .text-mobile-container {
       width: 100%;
       max-width: 520px;
-      padding: 0 16px;
+      padding: 0 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -187,7 +193,7 @@
 
     .brand-logo {
       width: auto;
-      height: 36px;
+      height: 42px;
       object-fit: cover;
       margin-bottom: 42px;
     }
@@ -198,7 +204,7 @@
       font-size: 28px;
       font-weight: 550;
       line-height: 120%;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.02em;
       margin: 0;
       margin-bottom: 42px;
       width: 100%;
@@ -317,7 +323,7 @@
       border-radius: 11px;
       background: #fff;
       color: #000;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 500;
       letter-spacing: 0.02em;
       cursor: pointer;
@@ -459,6 +465,309 @@
       color: var(--muted);
     }
 
+    .persona-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .persona-modal[hidden] {
+      display: none !important;
+    }
+
+    .persona-modal::before,
+    .persona-modal::after {
+      content: "";
+      position: absolute;
+      inset: -25%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 260ms ease, transform 520ms cubic-bezier(0.2, 0.9, 0.2, 1), filter 520ms ease;
+      transform: translate3d(0, 0, 0) scale(1.03);
+      filter: blur(18px) saturate(1.1);
+      will-change: opacity, transform, filter;
+    }
+
+    /* Brand wash (purple) */
+    .persona-modal::before {
+      background:
+        radial-gradient(900px 520px at 20% 15%, rgba(95, 14, 236, 0.36), rgba(95, 14, 236, 0.00) 62%),
+        radial-gradient(820px 540px at 85% 85%, rgba(95, 14, 236, 0.14), rgba(95, 14, 236, 0.00) 64%),
+        radial-gradient(720px 420px at 60% 10%, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.00) 60%);
+    }
+
+    /* Creator wash (red) */
+    .persona-modal::after {
+      background:
+        radial-gradient(900px 520px at 80% 15%, rgba(252, 98, 98, 0.34), rgba(252, 98, 98, 0.00) 62%),
+        radial-gradient(860px 560px at 15% 85%, rgba(252, 98, 98, 0.14), rgba(252, 98, 98, 0.00) 64%),
+        radial-gradient(720px 420px at 40% 10%, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.00) 60%);
+    }
+
+    /* Hover state is applied via JS (mouseenter/focus) */
+    .persona-modal.hover-brand::before {
+      opacity: 1;
+      transform: translate3d(0, -0.5%, 0) scale(1.05);
+      filter: blur(14px) saturate(1.2);
+      animation: personaWashDrift 7s ease-in-out infinite alternate;
+    }
+
+    .persona-modal.hover-brand::after {
+      opacity: 0.32;
+      transform: translate3d(0.3%, 0.2%, 0) scale(1.04);
+    }
+
+    .persona-modal.hover-creator::after {
+      opacity: 1;
+      transform: translate3d(0, -0.5%, 0) scale(1.05);
+      filter: blur(14px) saturate(1.2);
+      animation: personaWashDrift 7s ease-in-out infinite alternate;
+    }
+
+    .persona-modal.hover-creator::before {
+      opacity: 0.32;
+      transform: translate3d(-0.3%, 0.2%, 0) scale(1.04);
+    }
+
+    .persona-modal.is-open {
+      animation: personaOverlayIn 520ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+    }
+
+    .persona-card {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      background: #0b0b0c;
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow:
+        0 22px 70px rgba(0, 0, 0, 0.60),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    }
+
+    .persona-modal.is-open .persona-card {
+      animation: personaCardIn 560ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+    }
+
+    /* Subtle animated gradient border (falls back gracefully) */
+    .persona-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      opacity: 0.55;
+      filter: blur(10px);
+      transform: translateZ(0);
+      animation: personaGlowSpin 6s linear infinite;
+      pointer-events: none;
+    }
+
+    .persona-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(800px 220px at 50% 0%, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.0) 60%),
+        radial-gradient(520px 260px at 10% 10%, rgba(95, 14, 236, 0.08), rgba(95, 14, 236, 0.0) 55%),
+        radial-gradient(520px 260px at 90% 10%, rgba(252, 98, 98, 0.06), rgba(252, 98, 98, 0.0) 55%);
+      pointer-events: none;
+    }
+
+    .persona-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 550;
+      letter-spacing: -0.01em;
+      color: #eaeaf0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .persona-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 420px) {
+      .persona-buttons {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .persona-btn {
+      position: relative;
+      overflow: hidden;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, #18181b 0%, #131316 100%);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 550;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    #persona-brand {
+      --btn-r: 95;
+      --btn-g: 14;
+      --btn-b: 236;
+    }
+
+    #persona-creator {
+      --btn-r: 252;
+      --btn-g: 98;
+      --btn-b: 98;
+    }
+
+    .persona-btn::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background:
+        radial-gradient(260px 120px at 20% 20%, rgba(var(--btn-r, 255), var(--btn-g, 255), var(--btn-b, 255), 0.35), rgba(var(--btn-r, 255), var(--btn-g, 255), var(--btn-b, 255), 0.00) 70%),
+        radial-gradient(260px 120px at 80% 80%, rgba(var(--btn-r, 255), var(--btn-g, 255), var(--btn-b, 255), 0.22), rgba(var(--btn-r, 255), var(--btn-g, 255), var(--btn-b, 255), 0.00) 70%);
+      opacity: 0;
+      transition: opacity 200ms ease;
+      pointer-events: none;
+    }
+
+    .persona-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.00));
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .persona-btn > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .persona-modal.is-open .persona-btn {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: personaButtonIn 520ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+      animation-delay: 220ms;
+    }
+
+    .persona-modal.is-open .persona-btn:nth-child(2) {
+      animation-delay: 300ms;
+    }
+
+    .persona-btn:hover {
+      border-color: #2b2b2b;
+      background: linear-gradient(180deg, #1c1c20 0%, #151519 100%);
+      transform: translateY(-1px);
+    }
+
+    .persona-btn:hover::before,
+    .persona-btn:focus-visible::before {
+      opacity: 1;
+    }
+
+    #persona-brand:hover,
+    #persona-brand:focus-visible {
+      border-color: rgba(95, 14, 236, 0.55);
+      box-shadow:
+        0 12px 34px rgba(95, 14, 236, 0.22),
+        0 0 0 1px rgba(95, 14, 236, 0.18) inset;
+    }
+
+    #persona-creator:hover,
+    #persona-creator:focus-visible {
+      border-color: rgba(252, 98, 98, 0.55);
+      box-shadow:
+        0 12px 34px rgba(252, 98, 98, 0.22),
+        0 0 0 1px rgba(252, 98, 98, 0.18) inset;
+    }
+
+    .persona-btn:active {
+      transform: translateY(0);
+    }
+
+    .persona-btn:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
+      border-color: #3b3b3b;
+    }
+
+    @keyframes personaOverlayIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes personaCardIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+        filter: blur(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes personaButtonIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes personaGlowSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes personaWashDrift {
+      from {
+        transform: translate3d(-0.4%, -0.2%, 0) scale(1.05);
+      }
+      to {
+        transform: translate3d(0.4%, 0.2%, 0) scale(1.06);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .persona-modal.is-open,
+      .persona-modal.is-open .persona-card,
+      .persona-modal.is-open .persona-btn,
+      .persona-card::before,
+      .persona-modal::before,
+      .persona-modal::after {
+        animation: none !important;
+      }
+
+      .persona-modal::before,
+      .persona-modal::after {
+        transition: none !important;
+      }
+    }
+
     @media (max-width: 600px) {
       .page {
         margin-top: 92px;
@@ -466,21 +775,31 @@
     }
   </style>
 </head>
-<body>
+<body data-mailerlite-group-brand="173612830070670438" data-mailerlite-group-creator="">
+  <div id="persona-modal" class="persona-modal" role="dialog" aria-modal="true" aria-labelledby="persona-title">
+    <div class="persona-card">
+      <div id="persona-title" class="persona-title">I’m a...</div>
+      <div class="persona-buttons" role="group" aria-label="Choose audience">
+        <button id="persona-brand" class="persona-btn" type="button">Brand</button>
+        <button id="persona-creator" class="persona-btn" type="button">Creator</button>
+      </div>
+    </div>
+  </div>
+
   <div class="page">
     <div id="form-wrapper">
       <div class="text-mobile-container">
-        <img src="/images/contles-big.svg" alt="Contles logo" class="brand-logo anim-logo" style="height: 28px;" />
+        <img id="site-logo" src="/images/contles-big.svg" alt="Contles logo" class="brand-logo anim-logo" style="height: 32px;" />
 
         <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 36px!important;">
-          <h1 class="anim-title" style="max-width: 300px; text-transform: capitalize; margin-bottom: 8px!important; font-size: 36px; ">Reach millions and make thousands</h1>
-          <p  class="anim-title" style="font-weight: 500; letter-spacing: -0.01em; color: #BDBDBD; text-align: center; line-height: 140%; max-width: 300px;">Contles is currently in development! Join the newsletter to get early access.</p>
+          <h1 id="hero-title" class="anim-title" style="max-width: 380px; text-transform: capitalize; margin-bottom: 8px!important; font-size: 36px; ">Reach millions and make thousands</h1>
+          <p id="hero-subtitle" class="anim-title" style="font-weight: 500; letter-spacing: -0.01em; color: #BDBDBD; text-align: center; line-height: 140%; max-width: 380px;">Contles is being developed! Join to get weekly mail on how to be a better creator + get early access!</p>
         </div>
 
         <form id="waitlist-form" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
           <input type="text" name="fields[name]" id="name-input" class="anim-input" placeholder="Name" required style="font-weight: 500; letter-spacing: -0.01em;"/>
           <input type="email" name="fields[email]" id="email-input" class="anim-input" placeholder="Email" required style="font-weight: 500; letter-spacing: -0.01em;"/>
-          <button class="sub-button anim-button" type="submit" id="submit-btn" style="font-weight: 500; letter-spacing: -0.01em;">Join Today</button>
+          <button class="sub-button anim-button" type="submit" id="submit-btn" style="font-weight: 520; letter-spacing: 0em; padding-top: 1px;">Join Today</button>
         </form>
 
         <div id="error-message">Something went wrong. Please try again.</div>
@@ -510,6 +829,7 @@
 
         <div id="carousel-container" class="anim-carousel" aria-label="Product preview">
           <img
+            id="hero-image"
             src="/images/12.webp"
             class="preview-image"
             alt="Contles product preview"
@@ -529,6 +849,34 @@
 
   <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
   <script>
+    const PERSONA_STORAGE_KEY = "contlesPersona";
+    const PERSONA = {
+      BRAND: "brand",
+      CREATOR: "creator"
+    };
+
+    // Edit these values anytime (and set your MailerLite creator group on <body data-mailerlite-group-creator="...">).
+    const PERSONA_COPY = {
+      [PERSONA.BRAND]: {
+        title: "Master creator marketing with Contles",
+        subtitle: "Contles is being developed! Join to understand and master creator marketing + get early access!",
+        logoSrc: "/images/brands.svg",
+        logoAlt: "Contles logo",
+        imageSrc: "/images/limonadas.webp",
+        imageAlt: "Contles preview for brands",
+        pageTitle: "Contles for Brands"
+      },
+      [PERSONA.CREATOR]: {
+        title: "Become a better creator with Contles",
+        subtitle: "Contles is being developed! Join to get weekly mail on how to be a better creator + get early access!",
+        logoSrc: "/images/creators.svg",
+        logoAlt: "Contles logo",
+        imageSrc: "/images/limonadas.webp",
+        imageAlt: "Contles preview for creators",
+        pageTitle: "Contles for Creators"
+      }
+    };
+
     const form = document.getElementById("waitlist-form");
     const formWrapper = document.getElementById("form-wrapper");
     const success = document.getElementById("success");
@@ -537,6 +885,14 @@
     const submitBtn = document.getElementById("submit-btn");
     const nameInput = document.getElementById("name-input");
     const emailInput = document.getElementById("email-input");
+
+    const personaModal = document.getElementById("persona-modal");
+    const personaBrandBtn = document.getElementById("persona-brand");
+    const personaCreatorBtn = document.getElementById("persona-creator");
+    const siteLogo = document.getElementById("site-logo");
+    const heroTitle = document.getElementById("hero-title");
+    const heroSubtitle = document.getElementById("hero-subtitle");
+    const heroImage = document.getElementById("hero-image");
     
     const USE_SERVERLESS_FUNCTION = false;
     const SERVERLESS_FUNCTION_URL = "/api/subscribe";
@@ -544,6 +900,118 @@
     const MAILERLITE_API_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYzBhMzA2MTFmZjZlYWUwZTBlZDg3NGU3YmY2YjI1ZDY0NTVmYjIwOTg1ZjgzODc0MzM5MTk3ZWUwMmMzN2ExNWVhOWRiYWFiODE3NTZiMjMiLCJpYXQiOjE3NjU1NzA5OTEuMzA5NTQ3LCJuYmYiOjE3NjU1NzA5OTEuMzA5NTQ5LCJleHAiOjQ5MjEyNDQ1OTEuMzAzMDc2LCJzdWIiOiIxOTk3NDI3Iiwic2NvcGVzIjpbXX0.Tl6yVP8tpuYRjYcQPAKjKfN66aUYj0MGDa6Qlnczfh5RiE7NfjkGJYlzltRVaMGujirbqBOXRu61IATu0kxtsnWOs98VUQmTNj3fw0iizFJWWfEBKQIerc674UHTmHFFl0MBM9VFVmoBqueC6AzvOitqPocLpzwFXXEAWyjMhHB8tHGeAQlly0nA7SejOeT_J9cLVF7EEXAss4weEkKKaRCF1wy670udKoHAYr6YGjj8qiat6ByJa13HMKD9Jyps1qbMO6uyBNT0_tASBlZtChQ_LSl-6j4P4dYyjXDs0CXnx9w99w-O-uS0CjDr3xTmY1ZvaldA4jWxW14WKgRfBNzdaRjQFUhQtw6WKNHlT4ZQJ3RZstH_NV8xTrsvUnDBjRrAkTXJgdbDObQRfzSmiDgr0v497Ur9uIWldngT2C9i8j1-JKgIX9N0oQqYkvmqRq-Dz-UKZJafJJ99E37pjKFRlTR_bWteikKAXBfsF2rf20MdJf4QQ9HvAVeEcJyPc1DBq_4GUJLasCilVitlajKeToys553LEqSs_Du-A5cFNh0Vn0P1P7mbGOCZEfRbcAQ8MywAMsPyCwG2N76W6-z3V9sGVNH7QHUuSWOIMUty2pbIbfcJ9-dl0DoV-j-pqm3DRyNOONsJ_lwCDjHTbPBzLpZpUPmeSJzDWJO0jb0";
     const MAILERLITE_GROUP_ID = "173612830070670438";
     const MAILERLITE_API_URL = "https://connect.mailerlite.com/api/subscribers";
+
+    // We still store persona, but we ALWAYS ask on each reload (no one-time gating).
+    // During the session we use the <html data-persona="..."> attribute as the source of truth.
+    function getStoredPersona() {
+      const personaAttr = document.documentElement.getAttribute("data-persona");
+      if (personaAttr === PERSONA.BRAND || personaAttr === PERSONA.CREATOR) return personaAttr;
+      return null;
+    }
+
+    function setStoredPersona(persona) {
+      try {
+        localStorage.setItem(PERSONA_STORAGE_KEY, persona);
+      } catch (_) {}
+      document.documentElement.setAttribute("data-persona", persona);
+    }
+
+    function getActiveMailerLiteGroupId(persona) {
+      const brandGroup = document.body?.dataset?.mailerliteGroupBrand || "";
+      const creatorGroup = document.body?.dataset?.mailerliteGroupCreator || "";
+
+      if (persona === PERSONA.CREATOR) return creatorGroup || brandGroup || MAILERLITE_GROUP_ID;
+      return brandGroup || MAILERLITE_GROUP_ID;
+    }
+
+    function setMetaContent(selector, content) {
+      if (!content) return;
+      const el = document.querySelector(selector);
+      if (!el) return;
+      el.setAttribute("content", content);
+    }
+
+    function applyPersona(persona) {
+      const cfg = PERSONA_COPY[persona];
+      if (!cfg) return;
+
+      if (siteLogo) {
+        siteLogo.src = cfg.logoSrc;
+        siteLogo.alt = cfg.logoAlt;
+      }
+      if (heroTitle) heroTitle.textContent = cfg.title;
+      if (heroSubtitle) heroSubtitle.textContent = cfg.subtitle;
+      if (heroImage) {
+        heroImage.src = cfg.imageSrc;
+        heroImage.alt = cfg.imageAlt;
+      }
+      if (cfg.pageTitle) document.title = cfg.pageTitle;
+
+      // Keep SEO-ish tags consistent with the selected persona
+      setMetaContent('meta[name="description"]', cfg.subtitle);
+      setMetaContent('meta[property="og:title"]', cfg.pageTitle || cfg.title);
+      setMetaContent('meta[name="twitter:title"]', cfg.pageTitle || cfg.title);
+      setMetaContent('meta[property="og:description"]', cfg.subtitle);
+      setMetaContent('meta[name="twitter:description"]', cfg.subtitle);
+    }
+
+    function hidePersonaModal() {
+      if (!personaModal) return;
+      personaModal.hidden = true;
+      personaModal.classList.remove("is-open");
+      personaModal.classList.remove("hover-brand", "hover-creator");
+      document.body.style.overflow = "";
+    }
+
+    function showPersonaModal() {
+      if (!personaModal) return;
+      personaModal.hidden = false;
+      // Re-trigger animations even if re-opened
+      personaModal.classList.remove("is-open");
+      personaModal.classList.remove("hover-brand", "hover-creator");
+      // eslint-disable-next-line no-unused-expressions
+      personaModal.offsetHeight;
+      personaModal.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function choosePersona(persona) {
+      setStoredPersona(persona);
+      applyPersona(persona);
+      hidePersonaModal();
+      startEntranceAnimations();
+    }
+
+    // Always ask on load
+    document.documentElement.removeAttribute("data-persona");
+    showPersonaModal();
+
+    if (personaBrandBtn) personaBrandBtn.addEventListener("click", () => choosePersona(PERSONA.BRAND));
+    if (personaCreatorBtn) personaCreatorBtn.addEventListener("click", () => choosePersona(PERSONA.CREATOR));
+
+    function setPersonaHover(variant) {
+      if (!personaModal) return;
+      personaModal.classList.toggle("hover-brand", variant === PERSONA.BRAND);
+      personaModal.classList.toggle("hover-creator", variant === PERSONA.CREATOR);
+    }
+
+    function clearPersonaHover() {
+      if (!personaModal) return;
+      personaModal.classList.remove("hover-brand", "hover-creator");
+    }
+
+    if (personaBrandBtn) {
+      personaBrandBtn.addEventListener("mouseenter", () => setPersonaHover(PERSONA.BRAND));
+      personaBrandBtn.addEventListener("mouseleave", clearPersonaHover);
+      personaBrandBtn.addEventListener("focus", () => setPersonaHover(PERSONA.BRAND));
+      personaBrandBtn.addEventListener("blur", clearPersonaHover);
+    }
+    if (personaCreatorBtn) {
+      personaCreatorBtn.addEventListener("mouseenter", () => setPersonaHover(PERSONA.CREATOR));
+      personaCreatorBtn.addEventListener("mouseleave", clearPersonaHover);
+      personaCreatorBtn.addEventListener("focus", () => setPersonaHover(PERSONA.CREATOR));
+      personaCreatorBtn.addEventListener("blur", clearPersonaHover);
+    }
 
     const DAILY_SUCCESS_GIFS = [
       "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif",
@@ -593,6 +1061,7 @@
         let response, data;
 
         if (USE_SERVERLESS_FUNCTION) {
+          const activePersona = getStoredPersona() || PERSONA.BRAND;
           response = await fetch(SERVERLESS_FUNCTION_URL, {
             method: "POST",
             headers: {
@@ -600,11 +1069,14 @@
             },
             body: JSON.stringify({
               email: email,
-              name: name
+              name: name,
+              persona: activePersona
             })
           });
           data = await response.json();
         } else {
+          const activePersona = getStoredPersona() || PERSONA.BRAND;
+          const groupId = getActiveMailerLiteGroupId(activePersona);
           response = await fetch(MAILERLITE_API_URL, {
             method: "POST",
             headers: {
@@ -615,9 +1087,10 @@
             body: JSON.stringify({
               email: email,
               fields: {
-                name: name
+                name: name,
+                persona: activePersona
               },
-              groups: [MAILERLITE_GROUP_ID]
+              groups: [groupId]
             })
           });
           data = await response.json();
@@ -663,37 +1136,46 @@
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (!prefersReducedMotion && window.gsap) {
-      window.gsap.set(
-        [".anim-logo", ".anim-title", ".anim-input", ".anim-button", ".anim-launch", ".anim-carousel"],
-        { autoAlpha: 0, y: 16 }
-      );
-      window.gsap.set([".anim-logo", ".anim-title", ".anim-launch"], { filter: "blur(10px)" });
-      window.gsap.set([".anim-input", ".anim-button"], { filter: "blur(6px)" });
-      window.gsap.set([".anim-carousel"], { filter: "blur(9px)" });
-      document.documentElement.classList.remove("js");
+    let entranceStarted = false;
+    function startEntranceAnimations() {
+      if (entranceStarted) return;
+      entranceStarted = true;
 
-      const flow = [
-        ".anim-logo",
-        ".anim-title",
-        "#name-input.anim-input",
-        "#email-input.anim-input",
-        ".anim-button",
-        ".anim-launch",
-        ".anim-carousel"
-      ];
+      if (!prefersReducedMotion && window.gsap) {
+        window.gsap.set(
+          [".anim-logo", ".anim-title", ".anim-input", ".anim-button", ".anim-launch", ".anim-carousel"],
+          { autoAlpha: 0, y: 16 }
+        );
+        window.gsap.set([".anim-logo", ".anim-title", ".anim-launch"], { filter: "blur(10px)" });
+        window.gsap.set([".anim-input", ".anim-button"], { filter: "blur(6px)" });
+        window.gsap.set([".anim-carousel"], { filter: "blur(9px)" });
 
-      window.gsap.to(flow, {
-        autoAlpha: 1,
-        y: 0,
-        filter: "blur(0px)",
-        duration: 0.75,
-        ease: "power3.out",
-        stagger: 0.14,
-        force3D: true
-      });
-    } else {
-      document.documentElement.classList.remove('js');
+        // Release CSS "js" gating right when we animate in
+        document.documentElement.classList.remove("js");
+
+        const flow = [
+          ".anim-logo",
+          ".anim-title",
+          "#name-input.anim-input",
+          "#email-input.anim-input",
+          ".anim-button",
+          ".anim-launch",
+          ".anim-carousel"
+        ];
+
+        window.gsap.to(flow, {
+          autoAlpha: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.07,
+          force3D: true
+        });
+      } else {
+        // Reduced motion: just reveal immediately after selection
+        document.documentElement.classList.remove("js");
+      }
     }
   </script>
 
