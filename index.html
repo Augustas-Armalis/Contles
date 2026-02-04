@@ -11,14 +11,11 @@
   <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
   <link rel="canonical" href="https://join.contles.com/" />
-  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="manifest" href="./manifest.webmanifest" />
 
-  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="/images/favicon.svg" sizes="any" />
-  <link rel="shortcut icon" href="/images/favicon.ico" />
-  <link rel="apple-touch-icon" href="/images/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+  <link rel="icon" href="./images/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="./images/favicon.svg" sizes="any" />
+  <link rel="apple-touch-icon" href="./images/favicon.svg" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Contles Newsletter" />
@@ -775,7 +772,7 @@
     }
   </style>
 </head>
-<body data-mailerlite-group-brand="173612830070670438" data-mailerlite-group-creator="">
+<body data-mailerlite-group-brand="" data-mailerlite-group-creator="178504818018485790">
   <div id="persona-modal" class="persona-modal" role="dialog" aria-modal="true" aria-labelledby="persona-title">
     <div class="persona-card">
       <div id="persona-title" class="persona-title">I’m a...</div>
@@ -789,7 +786,7 @@
   <div class="page">
     <div id="form-wrapper">
       <div class="text-mobile-container">
-        <img id="site-logo" src="/images/contles-big.svg" alt="Contles logo" class="brand-logo anim-logo" style="height: 32px;" />
+        <img id="site-logo" src="./images/contles-big.svg" alt="Contles logo" class="brand-logo anim-logo" style="height: 32px;" />
 
         <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 36px!important;">
           <h1 id="hero-title" class="anim-title" style="max-width: 380px; text-transform: capitalize; margin-bottom: 8px!important; font-size: 36px; ">Reach millions and make thousands</h1>
@@ -810,19 +807,19 @@
           <p style="font-weight: 500; letter-spacing: -0.01em; color: #808080">Follow us on</p>
           <div class="social-links">
             <a class="social-link" href="https://www.instagram.com/trycontles/" target="_blank" rel="noopener noreferrer" aria-label="Contles on Instagram">
-              <img src="/images/instagram.svg" alt="" />
+              <img src="./images/instagram.svg" alt="" />
             </a>
             <a class="social-link" href="https://www.tiktok.com/@trycontles" target="_blank" rel="noopener noreferrer" aria-label="Contles on TikTok">
-              <img src="/images/tiktok.svg" alt="" />
+              <img src="./images/tiktok.svg" alt="" />
             </a>
             <a class="social-link" href="http://x.com/trycontles" target="_blank" rel="noopener noreferrer" aria-label="Contles on X">
-              <img src="/images/x.svg" alt="" />
+              <img src="./images/x.svg" alt="" />
             </a>
             <a class="social-link" href="https://www.linkedin.com/company/contles/" target="_blank" rel="noopener noreferrer" aria-label="Contles on LinkedIn">
-              <img src="/images/linkedin.svg" alt="" />
+              <img src="./images/linkedin.svg" alt="" />
             </a>
             <a class="social-link" href="https://www.facebook.com/profile.php?id=61585310110358" target="_blank" rel="noopener noreferrer" aria-label="Contles on Facebook">
-              <img src="/images/facebook.svg" alt="" />
+              <img src="./images/facebook.svg" alt="" />
             </a>
           </div>
         </div>
@@ -830,7 +827,7 @@
         <div id="carousel-container" class="anim-carousel" aria-label="Product preview">
           <img
             id="hero-image"
-            src="/images/12.webp"
+            src="./images/12.webp"
             class="preview-image"
             alt="Contles product preview"
             loading="lazy"
@@ -860,18 +857,18 @@
       [PERSONA.BRAND]: {
         title: "Master creator marketing with Contles",
         subtitle: "Contles is being developed! Join to understand and master creator marketing + get early access!",
-        logoSrc: "/images/brands.svg",
+        logoSrc: "./images/brands.svg",
         logoAlt: "Contles logo",
-        imageSrc: "/images/limonadas.webp",
+        imageSrc: "./images/limonadas.webp",
         imageAlt: "Contles preview for brands",
         pageTitle: "Contles for Brands"
       },
       [PERSONA.CREATOR]: {
         title: "Become a better creator with Contles",
         subtitle: "Contles is being developed! Join to get weekly mail on how to be a better creator + get early access!",
-        logoSrc: "/images/creators.svg",
+        logoSrc: "./images/creators.svg",
         logoAlt: "Contles logo",
-        imageSrc: "/images/limonadas.webp",
+        imageSrc: "./images/limonadas.webp",
         imageAlt: "Contles preview for creators",
         pageTitle: "Contles for Creators"
       }
@@ -898,8 +895,18 @@
     const SERVERLESS_FUNCTION_URL = "/api/subscribe";
     
     const MAILERLITE_API_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYzBhMzA2MTFmZjZlYWUwZTBlZDg3NGU3YmY2YjI1ZDY0NTVmYjIwOTg1ZjgzODc0MzM5MTk3ZWUwMmMzN2ExNWVhOWRiYWFiODE3NTZiMjMiLCJpYXQiOjE3NjU1NzA5OTEuMzA5NTQ3LCJuYmYiOjE3NjU1NzA5OTEuMzA5NTQ5LCJleHAiOjQ5MjEyNDQ1OTEuMzAzMDc2LCJzdWIiOiIxOTk3NDI3Iiwic2NvcGVzIjpbXX0.Tl6yVP8tpuYRjYcQPAKjKfN66aUYj0MGDa6Qlnczfh5RiE7NfjkGJYlzltRVaMGujirbqBOXRu61IATu0kxtsnWOs98VUQmTNj3fw0iizFJWWfEBKQIerc674UHTmHFFl0MBM9VFVmoBqueC6AzvOitqPocLpzwFXXEAWyjMhHB8tHGeAQlly0nA7SejOeT_J9cLVF7EEXAss4weEkKKaRCF1wy670udKoHAYr6YGjj8qiat6ByJa13HMKD9Jyps1qbMO6uyBNT0_tASBlZtChQ_LSl-6j4P4dYyjXDs0CXnx9w99w-O-uS0CjDr3xTmY1ZvaldA4jWxW14WKgRfBNzdaRjQFUhQtw6WKNHlT4ZQJ3RZstH_NV8xTrsvUnDBjRrAkTXJgdbDObQRfzSmiDgr0v497Ur9uIWldngT2C9i8j1-JKgIX9N0oQqYkvmqRq-Dz-UKZJafJJ99E37pjKFRlTR_bWteikKAXBfsF2rf20MdJf4QQ9HvAVeEcJyPc1DBq_4GUJLasCilVitlajKeToys553LEqSs_Du-A5cFNh0Vn0P1P7mbGOCZEfRbcAQ8MywAMsPyCwG2N76W6-z3V9sGVNH7QHUuSWOIMUty2pbIbfcJ9-dl0DoV-j-pqm3DRyNOONsJ_lwCDjHTbPBzLpZpUPmeSJzDWJO0jb0";
+    // Fallback group ID (used only if name lookup fails)
     const MAILERLITE_GROUP_ID = "173612830070670438";
     const MAILERLITE_API_URL = "https://connect.mailerlite.com/api/subscribers";
+    const MAILERLITE_GROUPS_API_URL = "https://connect.mailerlite.com/api/groups";
+
+    // Group names in MailerLite (exact match)
+    const MAILERLITE_GROUP_NAME_BY_PERSONA = {
+      [PERSONA.BRAND]: "real-brand",
+      [PERSONA.CREATOR]: "real-creator"
+    };
+
+    const MAILERLITE_GROUP_CACHE_KEY = "contlesMailerLiteGroupIdsByName_v1";
 
     // We still store persona, but we ALWAYS ask on each reload (no one-time gating).
     // During the session we use the <html data-persona="..."> attribute as the source of truth.
@@ -916,12 +923,105 @@
       document.documentElement.setAttribute("data-persona", persona);
     }
 
-    function getActiveMailerLiteGroupId(persona) {
-      const brandGroup = document.body?.dataset?.mailerliteGroupBrand || "";
-      const creatorGroup = document.body?.dataset?.mailerliteGroupCreator || "";
+    function getGroupCache() {
+      try {
+        const raw = localStorage.getItem(MAILERLITE_GROUP_CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") return null;
+        return parsed;
+      } catch (_) {
+        return null;
+      }
+    }
 
-      if (persona === PERSONA.CREATOR) return creatorGroup || brandGroup || MAILERLITE_GROUP_ID;
-      return brandGroup || MAILERLITE_GROUP_ID;
+    function setGroupCache(cacheObj) {
+      try {
+        localStorage.setItem(MAILERLITE_GROUP_CACHE_KEY, JSON.stringify(cacheObj));
+      } catch (_) {}
+    }
+
+    function pickGroupsArray(json) {
+      if (!json) return [];
+      if (Array.isArray(json)) return json;
+      if (Array.isArray(json.data)) return json.data;
+      if (Array.isArray(json.groups)) return json.groups;
+      return [];
+    }
+
+    async function fetchMailerLiteGroups() {
+      const res = await fetch(MAILERLITE_GROUPS_API_URL, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${MAILERLITE_API_KEY}`,
+          "Accept": "application/json"
+        }
+      });
+      const json = await res.json().catch(() => null);
+      if (!res.ok) {
+        const msg = json?.message || json?.error || `Failed to fetch groups (${res.status})`;
+        throw new Error(msg);
+      }
+      return pickGroupsArray(json);
+    }
+
+    async function getMailerLiteGroupIdByName(name) {
+      if (!name) return null;
+
+      // 2) Cache
+      const cache = getGroupCache();
+      const cachedId = cache?.[name];
+      if (typeof cachedId === "string" && cachedId.trim()) return cachedId.trim();
+
+      // 3) Fetch + store
+      const groups = await fetchMailerLiteGroups();
+      const found = groups.find((g) => (g?.name || g?.attributes?.name) === name);
+      const id = found?.id || found?.attributes?.id;
+      if (typeof id === "string" && id.trim()) {
+        setGroupCache({ ...(cache || {}), [name]: id.trim() });
+        return id.trim();
+      }
+
+      return null;
+    }
+
+    async function getActiveMailerLiteGroupId(persona) {
+      const groupName = MAILERLITE_GROUP_NAME_BY_PERSONA[persona] || MAILERLITE_GROUP_NAME_BY_PERSONA[PERSONA.BRAND];
+      try {
+        // Prefer explicit overrides in HTML (fast, no lookup)
+        const overrideId =
+          persona === PERSONA.CREATOR
+            ? (document.body?.dataset?.mailerliteGroupCreator || "")
+            : (document.body?.dataset?.mailerliteGroupBrand || "");
+
+        if (typeof overrideId === "string" && overrideId.trim()) return overrideId.trim();
+
+        const id = await getMailerLiteGroupIdByName(groupName);
+        return id || MAILERLITE_GROUP_ID;
+      } catch (_) {
+        return MAILERLITE_GROUP_ID;
+      }
+    }
+
+    function getSubscriberIdFromMailerLiteResponse(json) {
+      return json?.data?.id || json?.id || null;
+    }
+
+    async function assignSubscriberToGroup(subscriberId, groupId) {
+      const url = `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(
+        subscriberId
+      )}/groups/${encodeURIComponent(groupId)}`;
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${MAILERLITE_API_KEY}`,
+          "Accept": "application/json"
+        }
+      });
+
+      const json = await res.json().catch(() => null);
+      return { res, json };
     }
 
     function setMetaContent(selector, content) {
@@ -1076,7 +1176,7 @@
           data = await response.json();
         } else {
           const activePersona = getStoredPersona() || PERSONA.BRAND;
-          const groupId = getActiveMailerLiteGroupId(activePersona);
+          const groupId = await getActiveMailerLiteGroupId(activePersona);
           response = await fetch(MAILERLITE_API_URL, {
             method: "POST",
             headers: {
@@ -1097,16 +1197,29 @@
         }
 
         if (response.ok) {
+          // Ensure group assignment even if upsert doesn't add it (or UI caching makes it look like it didn't)
+          if (!USE_SERVERLESS_FUNCTION) {
+            const activePersona = getStoredPersona() || PERSONA.BRAND;
+            const groupId = await getActiveMailerLiteGroupId(activePersona);
+            const subscriberId = getSubscriberIdFromMailerLiteResponse(data);
+
+            if (subscriberId && groupId) {
+              const { res: assignRes, json: assignJson } = await assignSubscriberToGroup(subscriberId, groupId);
+              if (!assignRes.ok) {
+                const msg =
+                  assignJson?.message ||
+                  assignJson?.error ||
+                  `Could not assign subscriber to group (${assignRes.status})`;
+                throw new Error(msg);
+              }
+            }
+          }
           showSuccess();
         } else {
 
           if (data.error || data.message) {
             const errorMsg = data.error || data.message;
-            if (errorMsg.includes("already exists") || response.status === 200) {
-              showSuccess();
-            } else {
-              showError(errorMsg || "Failed to subscribe. Please try again.");
-            }
+            showError(errorMsg || "Failed to subscribe. Please try again.");
           } else {
             showError("Failed to subscribe. Please try again.");
           }
