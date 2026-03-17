@@ -901,25 +901,8 @@
     const heroSubtitle = document.getElementById("hero-subtitle");
     const heroImage = document.getElementById("hero-image");
     
-    const USE_SERVERLESS_FUNCTION = false;
     const SERVERLESS_FUNCTION_URL = "/api/subscribe";
-    
-    const MAILERLITE_API_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiOTFhYjliODFkZmQ5YWMxODc5YjEyZWVhNGRhY2ZkMmE0ZWU2ZjczZDA2ZDBmOWE4OTdjNTc0MzQzM2JiNTA0MWU0YzVmNjlkNTM5MDJkNjUiLCJpYXQiOjE3NzM2NjIwMDkuNzY2MDA5LCJuYmYiOjE3NzM2NjIwMDkuNzY2MDExLCJleHAiOjQ5MjkzMzU2MDkuNzU2MjQyLCJzdWIiOiIxOTk3NDI3Iiwic2NvcGVzIjpbXX0.xciWVcr6uz1Y4XQqKH6KborfHUP-BfHSmzOeN5-CZvubJEyn0zIjRGbYXGzytYcsTsoka3Emn52739VjFaQiMOqGCBITtt6xWr-j4eKSFFIr4w_6-1NuWrKO3KDZUngQ6VAMKDUXAeG_NImQOKKz4qqAh605OWa9i6RLQnIPo71pd6kaFpA4bDZwjjr9bMwHi6oH1xIDb6ziu3el2exPsPuaAvd8SGKPO36upf2tyVl_qrLG7Ed6ktcvF4iD9MJAZWO6L4L7DU7-xM4jLcP7dEymuV4dp0wWUIDcZn7omXGsiMITRKEEdgc1jJJ9hsH3vBT8xLJbqKwUCdknDQV4FQYoqt3lAAgWj0HkrRvzOvVcmy2Z-oJXWfnaKoT4zAsLhbcrrl0c7Afh2d42P_jI3bv5lmoYQti5-dBm8Kr2lPK7o6tWenMXNmCmmTMenBGkq_NlxXb-zlcv5fV6_HbnYkfKWPtXVIm5-6NLt07uhz1P9tvCOJF7rjqiLEfAzc6Slt7mU1j4SLPWKac8AlzACnGraC-ylCI0jyE8-pUeBPBF2rCuVbmVLeaug5c3b-86TAuYOk9uZ-ERI2gV2QwNBCHzpsejxhZk2kZ2957mZAmIL8bXt3U2D1V-RwzeFnMBsGi-CYEEHF1J6ZLHj4yx-T21J622rigCT9WUt4RGw_o";
-    // Fallback group ID (used only if name lookup fails)
-    const MAILERLITE_GROUP_ID = "173612830070670438";
-    const MAILERLITE_API_URL = "https://connect.mailerlite.com/api/subscribers";
-    const MAILERLITE_GROUPS_API_URL = "https://connect.mailerlite.com/api/groups";
 
-    // Group names in MailerLite (exact match)
-    const MAILERLITE_GROUP_NAME_BY_PERSONA = {
-      [PERSONA.BRAND]: "real-brand",
-      [PERSONA.CREATOR]: "real-creator"
-    };
-
-    const MAILERLITE_GROUP_CACHE_KEY = "contlesMailerLiteGroupIdsByName_v1";
-
-    // We still store persona, but we ALWAYS ask on each reload (no one-time gating).
-    // During the session we use the <html data-persona="..."> attribute as the source of truth.
     function getStoredPersona() {
       const personaAttr = document.documentElement.getAttribute("data-persona");
       if (personaAttr === PERSONA.BRAND || personaAttr === PERSONA.CREATOR) return personaAttr;
@@ -931,107 +914,6 @@
         localStorage.setItem(PERSONA_STORAGE_KEY, persona);
       } catch (_) {}
       document.documentElement.setAttribute("data-persona", persona);
-    }
-
-    function getGroupCache() {
-      try {
-        const raw = localStorage.getItem(MAILERLITE_GROUP_CACHE_KEY);
-        if (!raw) return null;
-        const parsed = JSON.parse(raw);
-        if (!parsed || typeof parsed !== "object") return null;
-        return parsed;
-      } catch (_) {
-        return null;
-      }
-    }
-
-    function setGroupCache(cacheObj) {
-      try {
-        localStorage.setItem(MAILERLITE_GROUP_CACHE_KEY, JSON.stringify(cacheObj));
-      } catch (_) {}
-    }
-
-    function pickGroupsArray(json) {
-      if (!json) return [];
-      if (Array.isArray(json)) return json;
-      if (Array.isArray(json.data)) return json.data;
-      if (Array.isArray(json.groups)) return json.groups;
-      return [];
-    }
-
-    async function fetchMailerLiteGroups() {
-      const res = await fetch(MAILERLITE_GROUPS_API_URL, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${MAILERLITE_API_KEY}`,
-          "Accept": "application/json"
-        }
-      });
-      const json = await res.json().catch(() => null);
-      if (!res.ok) {
-        const msg = json?.message || json?.error || `Failed to fetch groups (${res.status})`;
-        throw new Error(msg);
-      }
-      return pickGroupsArray(json);
-    }
-
-    async function getMailerLiteGroupIdByName(name) {
-      if (!name) return null;
-
-      // 2) Cache
-      const cache = getGroupCache();
-      const cachedId = cache?.[name];
-      if (typeof cachedId === "string" && cachedId.trim()) return cachedId.trim();
-
-      // 3) Fetch + store
-      const groups = await fetchMailerLiteGroups();
-      const found = groups.find((g) => (g?.name || g?.attributes?.name) === name);
-      const id = found?.id || found?.attributes?.id;
-      if (typeof id === "string" && id.trim()) {
-        setGroupCache({ ...(cache || {}), [name]: id.trim() });
-        return id.trim();
-      }
-
-      return null;
-    }
-
-    async function getActiveMailerLiteGroupId(persona) {
-      const groupName = MAILERLITE_GROUP_NAME_BY_PERSONA[persona] || MAILERLITE_GROUP_NAME_BY_PERSONA[PERSONA.BRAND];
-      try {
-        // Prefer explicit overrides in HTML (fast, no lookup)
-        const overrideId =
-          persona === PERSONA.CREATOR
-            ? (document.body?.dataset?.mailerliteGroupCreator || "")
-            : (document.body?.dataset?.mailerliteGroupBrand || "");
-
-        if (typeof overrideId === "string" && overrideId.trim()) return overrideId.trim();
-
-        const id = await getMailerLiteGroupIdByName(groupName);
-        return id || MAILERLITE_GROUP_ID;
-      } catch (_) {
-        return MAILERLITE_GROUP_ID;
-      }
-    }
-
-    function getSubscriberIdFromMailerLiteResponse(json) {
-      return json?.data?.id || json?.id || null;
-    }
-
-    async function assignSubscriberToGroup(subscriberId, groupId) {
-      const url = `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(
-        subscriberId
-      )}/groups/${encodeURIComponent(groupId)}`;
-
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${MAILERLITE_API_KEY}`,
-          "Accept": "application/json"
-        }
-      });
-
-      const json = await res.json().catch(() => null);
-      return { res, json };
     }
 
     function setMetaContent(selector, content) {
@@ -1168,71 +1050,18 @@
       }
 
       try {
-        let response, data;
-
-        if (USE_SERVERLESS_FUNCTION) {
-          const activePersona = getStoredPersona() || PERSONA.BRAND;
-          response = await fetch(SERVERLESS_FUNCTION_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              email: email,
-              name: name,
-              persona: activePersona
-            })
-          });
-          data = await response.json();
-        } else {
-          const activePersona = getStoredPersona() || PERSONA.BRAND;
-          const groupId = await getActiveMailerLiteGroupId(activePersona);
-          response = await fetch(MAILERLITE_API_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${MAILERLITE_API_KEY}`,
-              "Accept": "application/json"
-            },
-            body: JSON.stringify({
-              email: email,
-              fields: {
-                name: name,
-                persona: activePersona
-              },
-              groups: [groupId]
-            })
-          });
-          data = await response.json();
-        }
+        const activePersona = getStoredPersona() || PERSONA.BRAND;
+        const response = await fetch(SERVERLESS_FUNCTION_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, name, persona: activePersona })
+        });
+        const data = await response.json();
 
         if (response.ok) {
-          // Ensure group assignment even if upsert doesn't add it (or UI caching makes it look like it didn't)
-          if (!USE_SERVERLESS_FUNCTION) {
-            const activePersona = getStoredPersona() || PERSONA.BRAND;
-            const groupId = await getActiveMailerLiteGroupId(activePersona);
-            const subscriberId = getSubscriberIdFromMailerLiteResponse(data);
-
-            if (subscriberId && groupId) {
-              const { res: assignRes, json: assignJson } = await assignSubscriberToGroup(subscriberId, groupId);
-              if (!assignRes.ok) {
-                const msg =
-                  assignJson?.message ||
-                  assignJson?.error ||
-                  `Could not assign subscriber to group (${assignRes.status})`;
-                throw new Error(msg);
-              }
-            }
-          }
           showSuccess();
         } else {
-
-          if (data.error || data.message) {
-            const errorMsg = data.error || data.message;
-            showError(errorMsg || "Failed to subscribe. Please try again.");
-          } else {
-            showError("Failed to subscribe. Please try again.");
-          }
+          showError(data.error || data.message || "Failed to subscribe. Please try again.");
         }
       } catch (error) {
         console.error("Submission error:", error);

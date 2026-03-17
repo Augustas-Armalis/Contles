@@ -1,0 +1,15 @@
+{
+  "name": "contles",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev:cf": "wrangler pages dev dist --compatibility-date=2024-01-01"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0",
+    "wrangler": "^3.78.0"
+  }
+}
