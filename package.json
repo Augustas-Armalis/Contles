@@ -6,8 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "dev:cf": "wrangler pages dev dist",
-    "deploy": "npm run build && wrangler pages deploy"
+    "dev:cf": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
   },
   "devDependencies": {
     "vite": "^5.4.0",
