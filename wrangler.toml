@@ -1,5 +1,10 @@
 name = "contles"
+pages_build_output_dir = "./dist"
 compatibility_date = "2026-03-17"
 
-[assets]
-directory = "./dist"
+# Non-sensitive environment variables
+# Secrets (MAILERLITE_API_KEY) must be set via:
+#   wrangler pages secret put MAILERLITE_API_KEY
+# or in the Cloudflare Pages dashboard under Settings > Environment Variables
+[vars]
+MAILERLITE_GROUP_ID = "173612830070670438"
