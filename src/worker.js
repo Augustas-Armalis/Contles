@@ -99,6 +99,14 @@ export default {
       return handleSubscribe(request, env);
     }
 
-    return env.ASSETS.fetch(request);
+    const assetResponse = await env.ASSETS.fetch(request);
+    if (assetResponse.status === 404) {
+      const notFound = await env.ASSETS.fetch(new Request(new URL("/404.html", request.url)));
+      return new Response(notFound.body, {
+        status: 404,
+        headers: { "Content-Type": "text/html;charset=UTF-8" },
+      });
+    }
+    return assetResponse;
   },
 };
